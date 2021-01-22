@@ -23,8 +23,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Nomor Rumah</label>
-                                    <input type="text" wire:model='nomor_rumah' id="" class="form-control shadow-none"
+                                    <input type="text" wire:model='nomor_rumah' id=""
+                                        class="form-control shadow-none @error('nomor_rumah') is-invalid @enderror"
                                         placeholder="001">
+                                    @error('nomor_rumah')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -50,7 +54,11 @@
                                     <div class="form-group">
                                         <label for="">Nama Keluarga</label>
                                         <input type="text" wire:model='nama_keluarga.0' name="" id=""
-                                            class="form-control shadow-none" placeholder="Masukan Nama Lengkap">
+                                            class="form-control shadow-none @error('nama_keluarga.0') is-invalid @enderror"
+                                            placeholder="Masukan Nama Lengkap">
+                                        @error('nama_keluarga.0')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -364,17 +372,50 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="alert alert-info">
-                                Silahkan Scan Kartu Keluarga Kemudian simpan dengan menekan tombol <b>Simpan Data</b>!
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    Silahkan Scan Kartu Keluarga Untuk Menyimpan Data
+                                </div>
                             </div>
-                            <label for="">Scan Kartu</label>
-                            <input autofocus type="text" wire:model='scan_kartu' name="" id="scan_kartu"
-                                class="form-control shadow-none" placeholder="Scan Kartu Untuk Menyimpan">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="jenis_kartu">Jenis Kartu</label>
+                                    <select class="custom-select shadow-none @error('jenis_kartu') is-invalid @enderror"
+                                        wire:model="jenis_kartu" id="jenis_kartu">
+                                        <option>Pilih Kartu</option>
+                                        <option value="Kuning">Kuning</option>
+                                        <option value="Merah">Merah</option>
+                                        <option value="Hijau">Hijau</option>
+                                    </select>
+                                    @error('scan_kartu')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="">Scan Kartu</label>
+                                    <input maxlength="10" autofocus type="text" wire:model='scan_kartu' name=""
+                                        id="scan_kartu" class="form-control shadow-none
+                                            @if ($jenis_kartu == 'Kuning')
+                                               border border-warning bg-soft-warning
+                                            @elseif ($jenis_kartu == 'Merah')
+                                                border border-danger bg-soft-danger
+                                            @elseif($jenis_kartu == 'Hijau')
+                                                border border-success bg-soft-success
+                                            @else
+                                            @endif
+
+                                            @error('scan_kartu') is-invalid @enderror
+                                        " placeholder="Scan Kartu Untuk Menyimpan">
+                                    @error('scan_kartu') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger shadow-none"><i class="fa fa-save mr-1"></i>Simpan
-                                Data</button>
+
+                        <div class="form-group d-none">
+                            <button class="btn btn-danger">Simpan</button>
                         </div>
                     </form>
                 </div>

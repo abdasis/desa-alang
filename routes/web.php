@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Livewire\Penduduk\Create;
+use App\Http\Livewire\Penduduk\Index;
+use App\Http\Livewire\Penduduk\Update;
 use App\Http\Livewire\ScanKartu;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +23,9 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'penduduk'], function () {
+        Route::get('data-keluarga', Index::class)->name('keluarga.index');
         Route::get('catat-keluarga', Create::class)->name('keluarga.create');
+        Route::get('sunting-keluarga/{id}', Update::class)->name('keluarga.update');
     });
     Route::get('scan-kartu', ScanKartu::class)->name('scan-kartu');
 });

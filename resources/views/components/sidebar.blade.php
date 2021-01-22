@@ -1,5 +1,5 @@
 <div>
-    <div class="left-side-menu">
+    <div class="left-side-menu bg-dark">
 
         <div class="h-100" data-simplebar>
 
@@ -72,10 +72,10 @@
                         <div class="collapse" id="sidebarEcommerce">
                             <ul class="nav-second-level">
                                 <li>
-                                    <a href="ecommerce-dashboard.html">Tambah Penduduk</a>
+                                    <a href="{{ route('keluarga.create') }}">Tambah Penduduk</a>
                                 </li>
                                 <li>
-                                    <a href="ecommerce-products.html">Semua Penduduk</a>
+                                    <a href="{{ route('keluarga.index') }}">Semua Penduduk</a>
                                 </li>
                             </ul>
                         </div>

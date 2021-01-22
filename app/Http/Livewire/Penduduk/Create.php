@@ -9,11 +9,12 @@ use App\Models\PemilikKartu;
 use App\Models\Tetangga;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
     // kolom table keluarga
-    public $kode_keluarga, $nomor_rumah, $dusun, $binatang_ternak;
+    public $kode_keluarga, $nomor_rumah, $dusun, $binatang_ternak, $jenis_kartu;
 
     // kolom table anggota keluarga
     public $nama_keluarga, $umur, $ktp, $npwp, $pendidikan, $status, $pindah, $pisah, $penghasilan,
@@ -37,17 +38,31 @@ class Create extends Component
         array_push($this->formKeluarga, $i);
     }
 
+    public function rules()
+    {
+        return [
+            'nomor_rumah' => 'required|unique:keluargas',
+            'scan_kartu' => 'required|unique:keluargas,kode_keluarga',
+            'jenis_kartu' => 'required',
+            'nama_keluarga.0' => 'required',
+            'nama_keluarga.*' => 'required'
+
+        ];
+    }
+
     public function store()
     {
-        dd($this->scan_kartu);
+
         try {
+            $this->validate();
             DB::beginTransaction();
             // insert data untuk table keluarga
             $keluarga = new Keluarga();
             $keluarga->kode_keluarga = $this->scan_kartu;
+            $keluarga->jenis_kartu = $this->jenis_kartu;
             $keluarga->nomor_rumah = $this->nomor_rumah;
-            $keluarga->dusun = $this->dusun;
-            $keluarga->binatang_ternak = $this->binatang_ternak;
+            $keluarga->dusun = Str::title($this->dusun);
+            $keluarga->binatang_ternak = Str::title($this->binatang_ternak);
             $keluarga->save();
 
             // insert data untuk table bantuan
@@ -70,33 +85,37 @@ class Create extends Component
 
             // insert data tetangga
             $tetangga = new Tetangga();
-            $tetangga->barat = $this->barat;
-            $tetangga->timur = $this->timur;
-            $tetangga->utara = $this->utara;
-            $tetangga->selatan = $this->selatan;
+            $tetangga->barat = Str::title($this->barat);
+            $tetangga->timur = Str::title($this->timur);
+            $tetangga->utara = Str::title($this->utara);
+            $tetangga->selatan = Str::title($this->selatan);
             $keluarga->tetangga()->save($tetangga);
 
             // inserta data untuk anggota keluarga
-            foreach ($this->nama_keluarga as $key => $value) {
+            if ($this->nama_keluarga > 1) {
+                foreach ($this->nama_keluarga as $key => $value) {
 
-                // dd($this->keterangan_pekerjaan[$key]);
-                $anggotaKeluarga = new AnggotaKeluarga();
-                $anggotaKeluarga->nama = $this->nama_keluarga[$key];
-                $anggotaKeluarga->umur = $this->umur[$key];
-                // $anggotaKeluarga->ktp = $this->ktp[$key];
-                // $anggotaKeluarga->npwp = $this->npwp[$key];
-                $anggotaKeluarga->pendidikan = $this->pendidikan[$key];
-                $anggotaKeluarga->menikah = $this->status[$key];
-                $anggotaKeluarga->pindah = $this->pindah[$key];
-                // $anggotaKeluarga->pisah = $this->pisah[$key];
-                $anggotaKeluarga->penghasilan = $this->penghasilan[$key];
-                $anggotaKeluarga->status_keluarga = $this->status_keluarga[$key];
-                $anggotaKeluarga->pekerjaan = $this->pekerjaan[$key];
-                $anggotaKeluarga->keterangan_pekerjaan = $this->keterangan_pekerjaan[$key];
-                $keluarga->anggotaKeluarga()->save($anggotaKeluarga);
+                    // dd($this->keterangan_pekerjaan[$key]);
+                    $anggotaKeluarga = new AnggotaKeluarga();
+                    $anggotaKeluarga->nama = Str::title($this->nama_keluarga[$key]);
+                    $anggotaKeluarga->umur = $this->umur[$key];
+                    // $anggotaKeluarga->ktp = $this->ktp[$key];
+                    // $anggotaKeluarga->npwp = $this->npwp[$key];
+                    $anggotaKeluarga->pendidikan = $this->pendidikan[$key];
+                    $anggotaKeluarga->menikah = $this->status[$key];
+                    $anggotaKeluarga->pindah = $this->pindah[$key];
+                    // $anggotaKeluarga->pisah = $this->pisah[$key];
+                    $anggotaKeluarga->penghasilan = $this->penghasilan[$key];
+                    $anggotaKeluarga->status_keluarga = $this->status_keluarga[$key];
+                    $anggotaKeluarga->pekerjaan = $this->pekerjaan[$key];
+                    $anggotaKeluarga->keterangan_pekerjaan = $this->keterangan_pekerjaan[$key];
+                    $keluarga->anggotaKeluarga()->save($anggotaKeluarga);
+                }
             }
+
             DB::commit();
             $this->alert('success', 'Data berhasil disimpan');
+            $this->reset();
         } catch (\Throwable $th) {
             throw $th;
             DB::rollback();

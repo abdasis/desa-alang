@@ -1,5 +1,5 @@
 <div>
-    <div class="navbar-custom">
+    <div class="navbar-custom bg-dark">
         <div class="container-fluid">
             <ul class="list-unstyled topnav-menu float-right mb-0">
 

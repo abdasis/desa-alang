@@ -15,13 +15,13 @@
             <div class="widget-rounded-circle card-box">
                 <div class="row">
                     <div class="col-6">
-                        <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                            <i class="fe-shopping-bag font-22 avatar-title text-danger"></i>
+                        <div class="avatar-lg rounded-circle bg-soft-info border-info border">
+                            <i class="fe-users font-22 avatar-title text-info"></i>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="mt-1"><span data-plugin="counterup">178</span></h3>
+                            <h3 class="mt-1"><span data-plugin="counterup">{{ $dataPenduduk->count() }}</span></h3>
                             <p class="text-muted mb-1 text-truncate">Total Penduduk</p>
                         </div>
                     </div>
@@ -33,13 +33,15 @@
             <div class="widget-rounded-circle card-box">
                 <div class="row">
                     <div class="col-6">
-                        <div class="avatar-lg rounded-circle bg-soft-secondary border-secondary border">
-                            <i class="fe-gitlab font-22 avatar-title text-secondary"></i>
+                        <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                            <i class="fe-users font-22 avatar-title text-success"></i>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="mt-1"><span data-plugin="counterup">289</span></h3>
+                            <h3 class="mt-1"><span
+                                    data-plugin="counterup">{{ $dataPenduduk->where('jenis_kartu', 'Hijau')->count() }}</span>
+                            </h3>
                             <p class="text-muted mb-1 text-truncate">Kartu Hijau</p>
                         </div>
                     </div>
@@ -51,13 +53,15 @@
             <div class="widget-rounded-circle card-box">
                 <div class="row">
                     <div class="col-6">
-                        <div class="avatar-lg rounded-circle bg-soft-blue border-blue border">
-                            <i class="fe-gift font-22 avatar-title text-blue"></i>
+                        <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
+                            <i class="fe-users font-22 avatar-title text-warning"></i>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="mt-1"><span data-plugin="counterup">1021</span></h3>
+                            <h3 class="mt-1"><span
+                                    data-plugin="counterup">{{ $dataPenduduk->where('jenis_kartu', 'Kuning')->count() }}</span>
+                            </h3>
                             <p class="text-muted mb-1 text-truncate">Kartu Kuning</p>
                         </div>
                     </div>
@@ -69,13 +73,15 @@
             <div class="widget-rounded-circle card-box">
                 <div class="row">
                     <div class="col-6">
-                        <div class="avatar-lg rounded-circle bg-soft-pink border-pink border">
-                            <i class="fe-users font-22 avatar-title text-pink"></i>
+                        <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
+                            <i class="fe-users font-22 avatar-title text-danger"></i>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="mt-1"><span data-plugin="counterup">154</span>k</h3>
+                            <h3 class="mt-1"><span
+                                    data-plugin="counterup">{{ $dataPenduduk->where('jenis_kartu', 'Merah')->count() }}</span>
+                            </h3>
                             <p class="text-muted mb-1 text-truncate">Kartu Merah</p>
                         </div>
                     </div>
@@ -109,22 +115,22 @@
                             <td>{{ $penduduk->dusun}}</td>
                             <td>
                                 @foreach ($penduduk->anggotaKeluarga as $anggotaKeluarga)
-                                {{ $anggotaKeluarga->nama }}
+                                {{ $anggotaKeluarga->nama }} <br>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($penduduk->anggotaKeluarga as $anggotaKeluarga)
-                                {{ $anggotaKeluarga->umur }}
+                                {{ $anggotaKeluarga->umur }} Thn <br>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($penduduk->anggotaKeluarga as $anggotaKeluarga)
-                                {{ $anggotaKeluarga->pendidikan }}
+                                {{ $anggotaKeluarga->pendidikan }} <br>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($penduduk->anggotaKeluarga as $anggotaKeluarga)
-                                {{ $anggotaKeluarga->penghasilan }}
+                                Rp. {{ $anggotaKeluarga->penghasilan }} <br>
                                 @endforeach
                             </td>
                             <td>
@@ -132,6 +138,8 @@
                                     <button class="btn-sm shadow-none btn btn-warning"><i
                                             class="fa fa-user-edit"></i></button>
                                 </a>
+                                <button wire:click='delete({{ $penduduk->id }})'
+                                    class="btn-sm shadow-none btn btn-danger"><i class="fa fa-trash-alt"></i></button>
                             </td>
                         </tr>
                         @endforeach

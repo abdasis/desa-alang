@@ -29,7 +29,17 @@
         @if ($showData)
         <div class="col-md-12">
             <div class="card bg-su">
-                <h5 class="card-header bg-white border-bottom">
+                <h5 class="card-header  border-bottom
+                    @if ($dataKeluarga->jenis_kartu == 'Kuning')
+                        bg-warning text-white
+                    @elseif($dataKeluarga->jenis_kartu = 'Merah')
+                        bg-danger text-white
+                    @elseif($dataKeluarga->jenis_kartu = 'Hijau')
+                        bg-success text-white
+                    @else
+                        bg-white
+                    @endif
+                ">
                     Data Keluarga
                 </h5>
                 <div class="card-body">
@@ -68,6 +78,18 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th>Anggota Keluarga:</th>
+                                <td>:</td>
+                                <td>
+                                    <ol>
+                                        @foreach ($dataKeluarga->anggotaKeluarga as $anggotaKeluarga)
+                                        <li>{{ $anggotaKeluarga->nama }}</li>
+                                        @endforeach
+                                    </ol>
+                                </td>
+                            </tr>
+
 
                         </tbody>
                     </table>
@@ -82,7 +104,12 @@
 @push('js')
 <script>
     $(document).ready(function(){
-            $('#scan_kartu').focus()
-        })
+        $('#scan_kartu').focus()
+    })
+    Livewire.on('focus', function(){
+        $('#scan_kartu').val('')
+        $('#scan_kartu').focus()
+
+    })
 </script>
 @endpush

@@ -21,12 +21,14 @@ class ScanKartu extends Component
 
             ]);
             $this->showData = true;
+            $this->emit('focus');
         } else {
             $this->alert('error', 'Maaf!', [
                 'text' => 'Data Keluarga Berhasil Ditemukan',
                 'toast' => false,
                 'position' => 'center'
             ]);
+            $this->showData = false;
         }
     }
     public function render()

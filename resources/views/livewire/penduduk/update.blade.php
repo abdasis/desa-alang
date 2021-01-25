@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form wire:submit.prevent='store'>
+                    <form wire:submit.prevent='update'>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -39,122 +39,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <fieldset>
-                            <legend>
-                                <h5 class="text-white bg-success p-2">Anggota Keluarga
-                                    <div class="float-right">
-                                        <span wire:click='add({{ $i }})' style="cursor: pointer"><i
-                                                class="fa fa-plus mx-2"></i></span>
-                                    </div>
-                                </h5>
-                            </legend>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="">Nama Keluarga</label>
-                                        <input type="text" wire:model='nama_keluarga.0' name="" id=""
-                                            class="form-control shadow-none @error('nama_keluarga.0') is-invalid @enderror"
-                                            placeholder="Masukan Nama Lengkap">
-                                        @error('nama_keluarga.0')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="">Umur</label>
-                                        <input type="text" name="" id="" wire:model='umur.0'
-                                            class="form-control shadow-none" placeholder="22">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="pendidikan">Pendidikan</label>
-                                        <select class="custom-select shadow-none" wire:model='pendidikan.0'
-                                            name="pendidikan" id="pendidikan">
-                                            <option selected>Pilih Pendidikan</option>
-                                            <option value="SD/Sederajat">SD/Sederajat</option>
-                                            <option value="SMP/Sederajart">SMP/SeFormulir Pendataan Keluargaderajat
-                                            </option>
-                                            <option value="SMA/Sederajat">SMA/Sederajat</option>
-                                            <option value="D3">D3</option>
-                                            <option value="D4">D4</option>
-                                            <option value="S1">S1</option>
-                                            <option value="S2">S2</option>
-                                            <option value="S3">S3</option>
-                                            <option value="Tidak Sekolah">Tidak Sekolah</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="">Penghasilan</label>
-                                        <input type="text" name="" id="" wire:model='penghasilan.0'
-                                            class="form-control shadow-none" placeholder="3.000.000">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="pendidikan">Status</label>
-                                        <select class="custom-select shadow-none" wire:model='status.0'
-                                            name="pendidikan" id="pendidikan">
-                                            <option selected>Pilih</option>
-                                            <option value="YA">Menikah</option>
-                                            <option value="TIDAK">Belum Menikah</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="pendidikan">Status Keluarga</label>
-                                        <select class="custom-select shadow-none" wire:model='status_keluarga.0'
-                                            name="pendidikan" id="pendidikan">
-                                            <option selected>Pilih</option>
-                                            <option value="Kepala Keluarga">Kepala Keluarga</option>
-                                            <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
-                                            <option value="Anggota">Anggota</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="pendidikan">Pindah KSK</label>
-                                        <select class="custom-select shadow-none" wire:model='pindah.0'
-                                            name="pendidikan" id="pendidikan">
-                                            <option selected>Pilih</option>
-                                            <option value="YA">Ya</option>
-                                            <option value="TIDAK">Tidak</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="pendidikan">Pekerjaan</label>
-                                        <select class="custom-select shadow-none" wire:model='pekerjaan.0'
-                                            id="pendidikan">
-                                            <option selected>Pilih</option>
-                                            <option value="Petani">Petani</option>
-                                            <option value="Pedagang">Pedagang</option>
-                                            <option value="Wirausaha">Wirausaha</option>
-                                            <option value="ASN">ASN</option>
-                                            <option value="Pegawai Swasta">Pegawai Swasta</option>
-                                            <option value="Lainnya">Lainnya</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="">Keterangan Pekerjaan</label>
-                                        <textarea class="form-control shadow-none" wire:model='keterangan_pekerjaan.0'
-                                            name="" id="" rows="3"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
 
                         @foreach ($formKeluarga as $key => $value)
                         <fieldset>

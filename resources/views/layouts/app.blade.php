@@ -89,7 +89,7 @@
 
     <!-- App js-->
     <script src="{{ asset('/assets/js/app.min.js') }}"></script>
-
+    @stack('js')
 </body>
 
 </html>

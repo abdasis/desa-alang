@@ -17,7 +17,7 @@ class Create extends Component
     public $kode_keluarga, $nomor_rumah, $dusun, $binatang_ternak, $jenis_kartu;
 
     // kolom table anggota keluarga
-    public $nama_keluarga, $umur, $ktp, $npwp, $pendidikan, $status, $pindah, $pisah, $penghasilan,
+    public $nama_keluarga, $umur, $ktp, $kk, $pendidikan, $status, $pindah, $pisah, $penghasilan,
         $status_keluarga, $pekerjaan, $keterangan_pekerjaan, $scan_kartu;
 
     // kolom table bantuan
@@ -61,6 +61,7 @@ class Create extends Component
             $keluarga->kode_keluarga = $this->scan_kartu;
             $keluarga->jenis_kartu = $this->jenis_kartu;
             $keluarga->nomor_rumah = $this->nomor_rumah;
+            $keluarga->kk = $this->kk;
             $keluarga->dusun = Str::title($this->dusun);
             $keluarga->binatang_ternak = Str::title($this->binatang_ternak);
             $keluarga->save();
@@ -94,21 +95,19 @@ class Create extends Component
             // inserta data untuk anggota keluarga
             if ($this->nama_keluarga > 1) {
                 foreach ($this->nama_keluarga as $key => $value) {
-
                     // dd($this->keterangan_pekerjaan[$key]);
                     $anggotaKeluarga = new AnggotaKeluarga();
-                    $anggotaKeluarga->nama = Str::title($this->nama_keluarga[$key]);
-                    $anggotaKeluarga->umur = $this->umur[$key];
-                    // $anggotaKeluarga->ktp = $this->ktp[$key];
-                    // $anggotaKeluarga->npwp = $this->npwp[$key];
-                    $anggotaKeluarga->pendidikan = $this->pendidikan[$key];
-                    $anggotaKeluarga->menikah = $this->status[$key];
-                    $anggotaKeluarga->pindah = $this->pindah[$key];
-                    // $anggotaKeluarga->pisah = $this->pisah[$key];
-                    $anggotaKeluarga->penghasilan = $this->penghasilan[$key];
-                    $anggotaKeluarga->status_keluarga = $this->status_keluarga[$key];
-                    $anggotaKeluarga->pekerjaan = $this->pekerjaan[$key];
-                    $anggotaKeluarga->keterangan_pekerjaan = $this->keterangan_pekerjaan[$key];
+                    $anggotaKeluarga->nama = Str::title($this->nama_keluarga);
+                    $anggotaKeluarga->umur = $this->umur ?? '';
+                    $anggotaKeluarga->ktp = $this->ktp ?? '';
+                    $anggotaKeluarga->pendidikan = $this->pendidikan ?? '';
+                    $anggotaKeluarga->menikah = $this->status ?? '';
+                    $anggotaKeluarga->pindah = $this->pindah ?? '';
+                    // $anggotaKeluarga->pisah = $this->pisah;
+                    $anggotaKeluarga->penghasilan = $this->penghasilan;
+                    $anggotaKeluarga->status_keluarga = $this->status_keluarga;
+                    $anggotaKeluarga->pekerjaan = $this->pekerjaan ?? '';
+                    $anggotaKeluarga->keterangan_pekerjaan = $this->keterangan_pekerjaan ?? '';
                     $keluarga->anggotaKeluarga()->save($anggotaKeluarga);
                 }
             }

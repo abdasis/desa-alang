@@ -17,8 +17,8 @@ class CreateAnggotaKeluargasTable extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->string('umur', 3)->nullable();
-            $table->enum('ktp', ['YA', 'TIDAK'])->nullable();
-            $table->enum('npwp', ['YA', 'TIDAK'])->nullable();
+            $table->string('ktp', 100)->nullable();
+            $table->string('npwp', 100)->nullable();
             $table->string('pendidikan', 100)->nullable();
             $table->enum('menikah', ['YA', 'TIDAK'])->nullable();
             $table->enum('pindah', ['YA', 'TIDAK'])->nullable();

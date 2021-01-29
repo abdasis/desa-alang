@@ -17,7 +17,7 @@ class Update extends Component
     public $kode_keluarga, $nomor_rumah, $dusun, $binatang_ternak, $jenis_kartu, $keluarga_id;
 
     // kolom table anggota keluarga
-    public $nama_keluarga, $umur, $ktp, $npwp, $pendidikan, $status, $pindah, $pisah, $penghasilan,
+    public $nama_keluarga, $umur, $ktp, $kk, $pendidikan, $status, $pindah, $pisah, $penghasilan,
         $status_keluarga, $pekerjaan, $keterangan_pekerjaan, $scan_kartu;
 
     // kolom table bantuan
@@ -48,14 +48,15 @@ class Update extends Component
     {
 
         $penduduk = Keluarga::find($id);
-        $this->kode_keluarga = $penduduk->kode_keluarga;
         $this->nomor_rumah = $penduduk->nomor_rumah;
+        $this->kk = $penduduk->kk;
         $this->dusun = $penduduk->dusun;
         $this->jenis_kartu = $penduduk->jenis_kartu;
         $this->scan_kartu = $penduduk->kode_keluarga;
         $this->binatang_ternak = $penduduk->binatang_ternak;
         $this->keluarga_id = $penduduk->id;
         foreach ($penduduk->anggotaKeluarga as $key => $keluarga) {
+            $this->ktp[$key] = $keluarga->ktp;
             $this->nama_keluarga[$key] = $keluarga->nama;
             $this->umur[$key] = $keluarga->umur;
             $this->pendidikan[$key] = $keluarga->pendidikan;
@@ -106,6 +107,7 @@ class Update extends Component
             $keluarga->kode_keluarga = $this->scan_kartu;
             $keluarga->jenis_kartu = $this->jenis_kartu;
             $keluarga->nomor_rumah = $this->nomor_rumah;
+            $keluarga->kk = $this->kk;
             $keluarga->dusun = Str::title($this->dusun);
             $keluarga->binatang_ternak = Str::title($this->binatang_ternak);
             $keluarga->save();
@@ -145,8 +147,8 @@ class Update extends Component
                     $anggotaKeluarga = new AnggotaKeluarga();
                     $anggotaKeluarga->nama = Str::title($this->nama_keluarga[$key]) ?? '';
                     $anggotaKeluarga->umur = $this->umur[$key] ?? '';
-                    // $anggotaKeluarga->ktp = $this->ktp[$key];
-                    // $anggotaKeluarga->npwp = $this->npwp[$key];
+                    $anggotaKeluarga->ktp = $this->ktp[$key] ?? '';
+                    $anggotaKeluarga->npwp = $this->kk[$key] ?? '';
                     $anggotaKeluarga->pendidikan = $this->pendidikan[$key] ?? '';
                     $anggotaKeluarga->menikah = $this->status[$key] ?? 'Tidak';
                     $anggotaKeluarga->pindah = $this->pindah[$key] ?? 'Tidak';

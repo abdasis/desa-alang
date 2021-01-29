@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <form wire:submit.prevent='store'>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Nomor Rumah</label>
                                     <input type="text" wire:model='nomor_rumah' id=""
@@ -31,13 +31,21 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">KK</label>
+                                    <input type="text" name="" id="" wire:model='kk' class="form-control shadow-none"
+                                        placeholder="Masukan No. KK">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Dusun</label>
                                     <input type="text" name="" id="" wire:model='dusun' class="form-control shadow-none"
                                         placeholder="Masukan Dusun">
                                 </div>
                             </div>
+
                         </div>
 
                         <fieldset>
@@ -50,6 +58,13 @@
                                 </h5>
                             </legend>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">NIK</label>
+                                        <input type="text" name="" id="" wire:model='ktp.0'
+                                            class="form-control shadow-none" placeholder="Masukan NIK">
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Nama Keluarga</label>
@@ -115,8 +130,10 @@
                                             name="pendidikan" id="pendidikan">
                                             <option selected>Pilih</option>
                                             <option value="Kepala Keluarga">Kepala Keluarga</option>
-                                            <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
-                                            <option value="Anggota">Anggota</option>
+                                            <option value="Istri">Istri</option>
+                                            <option value="Anak">Anak</option>
+                                            <option value="Orang Tua">Orang Tua</option>
+                                            <option value="Famili Lain">Anggota</option>
                                         </select>
                                     </div>
                                 </div>
@@ -154,6 +171,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </fieldset>
 
                         @foreach ($formKeluarga as $key => $value)
@@ -169,6 +187,13 @@
                                 </h5>
                             </legend>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">NIK</label>
+                                        <input type="text" name="" id="" wire:model='ktp.{{ $value }}'
+                                            class="form-control shadow-none" placeholder="Masukan NIK">
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Nama Keluarga</label>
@@ -230,8 +255,10 @@
                                             name="status_keluarga.{{ $value }}" id="status_keluarga.{{ $value }}">
                                             <option selected>Pilih</option>
                                             <option value="Kepala Keluarga">Kepala Keluarga</option>
-                                            <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
-                                            <option value="Anggota">Anggota</option>
+                                            <option value="Istri">Istri</option>
+                                            <option value="Anak">Anak</option>
+                                            <option value="Orang Tua">Orang Tua</option>
+                                            <option value="Famili Lain">Anggota</option>
                                         </select>
                                     </div>
                                 </div>

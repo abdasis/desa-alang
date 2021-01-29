@@ -46,9 +46,9 @@
                     <table class="table table-borderless table-responsive">
                         <tbody>
                             <tr>
-                                <th scope="row">Kode Keluarga Keluarga</th>
+                                <th scope="row">No Kartu Keluarga</th>
                                 <td>:</td>
-                                <td>{{ $dataKeluarga->kode_keluarga }}
+                                <td>{{ $dataKeluarga->kk }}
                                 </td>
                             </tr>
                             <tr>
@@ -65,30 +65,22 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">Binatang Ternak</th>
-                                <td>:</td>
-                                <td>{{ $dataKeluarga->binatang_ternak }}
-                                </td>
-                            </tr>
-
-                            <tr>
                                 <th scope="row">Kepala Rumah Tangga</th>
                                 <td>:</td>
                                 <td>{{ $dataKeluarga->anggotaKeluarga->where('status_keluarga', 'Kepala Keluarga')->first()->nama }}
                                 </td>
                             </tr>
 
+                            @foreach ($dataKeluarga->anggotaKeluarga as $anggotaKeluarga)
                             <tr>
-                                <th>Anggota Keluarga:</th>
+                                <th>{{ $anggotaKeluarga->status_keluarga }}:</th>
                                 <td>:</td>
                                 <td>
-                                    <ol>
-                                        @foreach ($dataKeluarga->anggotaKeluarga as $anggotaKeluarga)
-                                        <li>{{ $anggotaKeluarga->nama }}</li>
-                                        @endforeach
-                                    </ol>
+                                    {{ $anggotaKeluarga->nama }} <br>
+                                    {{ $anggotaKeluarga->ktp }}
                                 </td>
                             </tr>
+                            @endforeach
 
 
                         </tbody>
